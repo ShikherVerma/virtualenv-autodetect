@@ -1,11 +1,8 @@
 # virtualenv-autodetect.sh
 # 
 # Installation:
-# Add this line to your .zshenv, .bashrc or .bash-profile:
-#
+# Add this line to your .zshrc
 # source /path/to/virtualenv-autodetect.sh
-
-# https://github.com/egilewski/virtualenv-autodetect
 
 _VIRTUALENV_ACTIVATION_SCRIPT_PATH="bin/activate"
 
@@ -57,16 +54,6 @@ _get_virtualenv_path() {
     done
 }
 
-# Execute given function if derectory changed.
-# Unlike in Zsh's "chpwd_functions" won't work with "cd .".
-_bash_chpwd_function() {
-    if [ "$PWD" != "$_myoldpwd" ]
-    then
-        _myoldpwd="$PWD";
-        $1
-    fi
-}
-
 # Before activation remove VIRTUAL_ENV from inherited env.
 unset VIRTUAL_ENV
 
@@ -76,5 +63,3 @@ _virtualenv_auto_activate
 # Activate on directory change.
 # Zsh.
 chpwd_functions=(_virtualenv_auto_activate)
-# Bash.
-export PROMPT_COMMAND="_bash_chpwd_function _virtualenv_auto_activate"
